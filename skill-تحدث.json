@@ -1,0 +1,274 @@
+{
+  "intents": [
+    {
+      "intent": "ترحيب",
+      "examples": [
+        {
+          "text": "السلام عليكم"
+        },
+        {
+          "text": "مرحبا"
+        },
+        {
+          "text": "هيلو"
+        }
+      ]
+    },
+    {
+      "intent": "حجوزات",
+      "examples": [
+        {
+          "text": "متوفر حجز؟"
+        },
+        {
+          "text": "هل عندكم حجز؟"
+        }
+      ],
+      "description": "هل عندكم حجوزات؟"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-date",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-number",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-time",
+      "values": [],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_2_1626898375932",
+      "context": {
+        "number": "@sys-number"
+      },
+      "conditions": "@sys-number",
+      "event_name": "input",
+      "dialog_node": "handler_10_1626898375933"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "كم عدد الحضور؟"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_2_1626898375932",
+      "event_name": "focus",
+      "dialog_node": "handler_2_1626898375933",
+      "previous_sibling": "handler_10_1626898375933"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ما الوقت المناسب؟"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_9_1626898329337",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1626898329338",
+      "previous_sibling": "handler_7_1626898329338"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_9_1626898245485",
+      "context": {
+        "date": "@sys-date"
+      },
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_5_1626898245497"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ما اليوم المناسب؟"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_9_1626898245485",
+      "event_name": "focus",
+      "dialog_node": "handler_6_1626898245497",
+      "previous_sibling": "handler_5_1626898245497"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_9_1626898329337",
+      "context": {
+        "time": "@sys-time"
+      },
+      "conditions": "@sys-time",
+      "event_name": "input",
+      "dialog_node": "handler_7_1626898329338"
+    },
+    {
+      "type": "frame",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "تم الحجز"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#حجوزات",
+      "dialog_node": "node_8_1626898214718",
+      "previous_sibling": "node_9_1626898470318"
+    },
+    {
+      "type": "standard",
+      "title": "ترحيب",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "مرحبا"
+              },
+              {
+                "text": "ياهلا اسألني"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#ترحيب",
+      "dialog_node": "node_9_1626898470318",
+      "previous_sibling": "مرحبا"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1626898214718",
+      "variable": "$number",
+      "dialog_node": "slot_2_1626898375932",
+      "previous_sibling": "slot_9_1626898329337"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1626898214718",
+      "variable": "$date",
+      "dialog_node": "slot_9_1626898245485"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1626898214718",
+      "variable": "$time",
+      "dialog_node": "slot_9_1626898329337",
+      "previous_sibling": "slot_9_1626898245485"
+    },
+    {
+      "type": "standard",
+      "title": "أي شيء آخر",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "لم أفهم، يمكنك محاولة اعادة الصياغة"
+              },
+              {
+                "text": "هل يمكنك اعادة صياغة عبارتك؟ أنا لا فهم"
+              },
+              {
+                "text": "لم أفهم قصدك"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "أي شيء آخر",
+      "previous_sibling": "node_8_1626898214718",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "مرحبا",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ياهلا"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "مرحبا"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": ":هل قصدت",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "كل ما سبق خطأ"
+    },
+    "human_agent_assist": {
+      "prompt": ":هل قصدت"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "تحدث",
+  "language": "ar",
+  "description": ""
+}
